@@ -70,3 +70,24 @@ enter CONTAINER="django_project[-_]devcontainer[-_]app" SHELL="zsh" WORKDIR="/wo
 
         docker exec -it -u {{ USER }} -w {{ WORKDIR }} $container $shell_path
     fi
+
+##################
+#    ENV SYNC    #
+##################
+
+envsync:
+    #!/usr/bin/env python
+    from pathlib import Path
+
+    envfile = Path('.env')
+    envfile_example = Path('.env.example')
+
+    if not envfile.exists():
+        envfile.write_text(envfile_example.read_text())
+
+    with envfile.open() as f:
+        lines = [line for line in f.readlines() if not line.endswith('# envsync: ignore\n')]
+        lines = [line.split('=')[0] + '=\n' if line.endswith('# envsync: no-value\n') else line for line in lines]
+
+        lines.sort()
+        envfile_example.write_text(''.join(lines))
