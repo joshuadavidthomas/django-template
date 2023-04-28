@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     "allauth.socialaccount",
     "django_extensions",
     "django_htmx",
+    "django_vite",
     "django_watchfiles",
     "health_check",
     "health_check.db",
