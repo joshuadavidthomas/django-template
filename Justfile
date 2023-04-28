@@ -24,9 +24,15 @@ manage *COMMAND:
     python -m manage {{ COMMAND }}
 
 dev PORT="8000":
+    @just manage runserver 0.0.0.0:{{ PORT }}
+
+adev PORT="8000":
     python -m uvicorn --reload --host 0.0.0.0 --port {{ PORT }} project.asgi:application
 
-run:
+prod:
+    python -m gunicorn project.wsgi:application --config python:project.gunicorn
+
+aprod:
     python -m gunicorn project.asgi:application -k uvicorn.workers.UvicornWorker --config python:project.gunicorn
 
 alias mm := makemigrations
