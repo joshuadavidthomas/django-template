@@ -21,8 +21,20 @@ COPY manage.py /app
 COPY project /app/project
 COPY templates /app/templates
 
+
+FROM node:18-bullseye-slim as node
+WORKDIR /app
+
+COPY package.json postcss.config.js tailwind.config.js tsconfig.json vite.config.ts yarn.lock /app/
+COPY static/src /app/static/src
+RUN yarn install --no-optional \
+  && yarn build
+
+
 FROM app as static
 COPY --from=py /usr/local /usr/local
+COPY --from=node /app/static/dist /app/static/dist
+COPY static/public /app/static/public
 RUN DATABASE_URL=sqlite:///db.sqlite3 python manage.py collectstatic --noinput --clear
 
 
