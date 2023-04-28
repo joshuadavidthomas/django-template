@@ -3,8 +3,8 @@ from __future__ import annotations
 from django.apps import AppConfig
 
 
-class UsersConfig(AppConfig):
+class CoreConfig(AppConfig):
     default_auto_field = "django.db.models.AutoField"
-    name = "project.users"
-    label = "users"
-    verbose_name = "Users"
+    name = "django_project.core"
+    label = "core"
+    verbose_name = "Core"

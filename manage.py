@@ -12,7 +12,7 @@ def main() -> None:
     env = Env()
     env.read_env(Path(".env").as_posix())
 
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project.settings")
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "django_project.settings")
 
     try:
         from django.core.management import execute_from_command_line

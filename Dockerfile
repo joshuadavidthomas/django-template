@@ -18,7 +18,7 @@ RUN python -m pip install --upgrade pip \
 
 FROM base as app
 COPY manage.py /app
-COPY project /app/project
+COPY django_project /app/django_project
 COPY templates /app/templates
 
 
@@ -52,4 +52,4 @@ USER django
 
 EXPOSE 8000
 
-CMD ["python", "-m", "gunicorn", "project.wsgi:application", "--config", "python:project.gunicorn"]
+CMD ["python", "-m", "gunicorn", "django_project.wsgi:application", "--config", "python:django_project.gunicorn"]

@@ -17,12 +17,12 @@ include = '\.pyi?$'
 line-length = 88
 
 [tool.django-stubs]
-django_settings_module = "project.settings"
+django_settings_module = "django_project.settings"
 
 [tool.mypy]
 check_untyped_defs = true
 files = [
-  "project",
+  "django_project",
 ]
 no_implicit_optional = true
 plugins = [
@@ -35,7 +35,7 @@ warn_unused_ignores = true
 [[tool.mypy.overrides]]
 ignore_errors = true
 module = [
-  "project.*.migrations.*",
+  "django_project.*.migrations.*",
 ]
 
 [[tool.mypy.overrides]]
@@ -51,7 +51,7 @@ module = [
 ignore_missing_model_attributes = true
 
 [tool.pytest.ini_options]
-DJANGO_SETTINGS_MODULE = "project.settings"
+DJANGO_SETTINGS_MODULE = "django_project.settings"
 addopts = "--reuse-db -n auto --dist loadfile"
 norecursedirs = ".* bin build dist *.egg htmlcov logs node_modules templates venv"
 python_files = "tests.py test_*.py *_tests.py"
@@ -104,5 +104,5 @@ target-version = "py311"
 
 [tool.ruff.isort]
 force-single-line = true
-known-first-party = ["project"]
+known-first-party = ["django_project"]
 required-imports = ["from __future__ import annotations"]

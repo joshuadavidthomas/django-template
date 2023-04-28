@@ -36,7 +36,7 @@ STAGING = env.bool("STAGING", default=False)
 
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["*"] if DEBUG else ["localhost"])
 
-ASGI_APPLICATION = "project.asgi.application"
+ASGI_APPLICATION = "django_project.asgi.application"
 
 CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS", default=[])
 
@@ -48,9 +48,9 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 INSTALLED_APPS = [
     # First Party
-    "project.core",
-    "project.project",
-    "project.users",
+    "django_project.core",
+    "django_project.django_project",
+    "django_project.users",
     # Third Party
     "allauth",
     "allauth.account",
@@ -107,7 +107,7 @@ if DEBUG:
         "debug_toolbar.middleware.DebugToolbarMiddleware",
     )
 
-ROOT_URLCONF = "project.urls"
+ROOT_URLCONF = "django_project.urls"
 
 SECRET_KEY = env(
     "SECRET_KEY",
@@ -158,7 +158,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-WSGI_APPLICATION = "project.wsgi.application"
+WSGI_APPLICATION = "django_project.wsgi.application"
 
 # 2. Django Contrib Settings
 

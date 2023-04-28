@@ -5,9 +5,12 @@ Yet another Django template.
 ## Getting Started
 
 1. Create a new repository from this template.
-2. Rename all the instances of `project` to your project name. (Find and replace
-   should do the trick, though watch out for case-sensitive instances.)
-3. Rename the `project` directories to your project name.
+2. Find and replace all the instances of `django_project` to your project name.
+
+-   `django_project` -> `your_project_name`
+-   `DjangoProject` -> `YourProjectName`
+
+3. Rename the `django_project` directories to your project name.
 4. Rename the following in `fly.toml` to your project name, keeping in mind
    it will become your subdomain on fly.io:
 
@@ -22,19 +25,19 @@ Yet another Django template.
 
 ```shell
 ➜ fly launch
-Creating app in /home/.../projects/<example-project>
-An existing fly.toml file was found for app <example-project>.
+Creating app in /home/.../projects/<example-django_project>
+An existing fly.toml file was found for app <example-django_project>.
 ? Would you like to copy its configuration to the new app? Yes
 Scanning source code
 Detected a Django app
-? Choose an app name (leaving blank will default to '<example-project>')
+? Choose an app name (leaving blank will default to '<example-django_project>')
 ? Select Organization: Example Organization (example-organization)
 App will use '...' region as primary
-Created app '<example-project>' in organization '<example-organization>'
-Admin URL: https://fly.io/apps/<example-project>
-Hostname: <example-project>.fly.dev
-? Overwrite "/home/.../projects/<example-project>/Dockerfile"? No
-Set secrets on <example-project>: SECRET_KEY
+Created app '<example-django_project>' in organization '<example-organization>'
+Admin URL: https://fly.io/apps/<example-django_project>
+Hostname: <example-django_project>.fly.dev
+? Overwrite "/home/.../projects/<example-django_project>/Dockerfile"? No
+Set secrets on <example-django_project>: SECRET_KEY
 ? Would you like to set up a Postgresql database now? Yes
 ? Select configuration: Development - Single node, 1x shared CPU, 256MB RAM, 1GB disk
 ? Scale single node pg to zero after one hour? Yes

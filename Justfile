@@ -27,13 +27,13 @@ dev PORT="8000":
     @just manage runserver 0.0.0.0:{{ PORT }}
 
 adev PORT="8000":
-    python -m uvicorn --reload --host 0.0.0.0 --port {{ PORT }} project.asgi:application
+    python -m uvicorn --reload --host 0.0.0.0 --port {{ PORT }} django_project.asgi:application
 
 prod:
-    python -m gunicorn project.wsgi:application --config python:project.gunicorn
+    python -m gunicorn django_project.wsgi:application --config python:django_project.gunicorn
 
 aprod:
-    python -m gunicorn project.asgi:application -k uvicorn.workers.UvicornWorker --config python:project.gunicorn
+    python -m gunicorn django_project.asgi:application -k uvicorn.workers.UvicornWorker --config python:django_project.gunicorn
 
 alias mm := makemigrations
 
@@ -50,7 +50,7 @@ shell:
 #     DOCKER     #
 ##################
 
-enter CONTAINER="project[-_]devcontainer[-_]app" SHELL="zsh" WORKDIR="/workspace" USER="vscode":
+enter CONTAINER="django_project[-_]devcontainer[-_]app" SHELL="zsh" WORKDIR="/workspace" USER="vscode":
     #!/usr/bin/env sh
     if [ -f "/.dockerenv" ]; then
         echo "command cannot be run from within a Docker container"
