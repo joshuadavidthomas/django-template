@@ -7,7 +7,7 @@ from __future__ import annotations
 import multiprocessing
 from pathlib import Path
 
-bind = "0.0.0.0:5000"
+bind = "0.0.0.0:8000"
 
 chdir = str(Path(__file__).parent.parent)
 
