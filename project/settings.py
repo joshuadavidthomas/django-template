@@ -8,7 +8,7 @@ from environs import Env
 from sentry_sdk.integrations.django import DjangoIntegration
 from sentry_sdk.integrations.logging import LoggingIntegration
 
-from .utils import sentry_traces_sampler
+from .core.sentry import sentry_traces_sampler
 
 # 0. Setup
 
