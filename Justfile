@@ -50,7 +50,7 @@ shell:
 #     DOCKER     #
 ##################
 
-enter CONTAINER="django-application-template[-_]devcontainer[-_]app" SHELL="zsh" WORKDIR="/workspaces/django-application-template" USER="vscode":
+enter CONTAINER="project[-_]devcontainer[-_]app" SHELL="zsh" WORKDIR="/workspace" USER="vscode":
     #!/usr/bin/env sh
     if [ -f "/.dockerenv" ]; then
         echo "command cannot be run from within a Docker container"
