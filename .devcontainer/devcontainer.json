@@ -41,6 +41,7 @@
         "charliermarsh.ruff",
         "EditorConfig.EditorConfig",
         "esbenp.prettier-vscode",
+        "ms-azuretools.vscode-docker",
         "ms-python.black-formatter",
         "ms-python.pylint",
         "ms-python.python",
