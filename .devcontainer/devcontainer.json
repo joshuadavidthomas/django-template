@@ -63,6 +63,6 @@
       "label": "Django"
     }
   },
-   "postCreateCommand": "pip install --user -r requirements.txt",
-   "remoteUser": "vscode"
+  "postCreateCommand": "pip install --user -r requirements.txt",
+  "remoteUser": "vscode"
 }
