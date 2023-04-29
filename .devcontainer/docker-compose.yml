@@ -22,6 +22,7 @@ services:
       - ..:/workspace:cached
     network_mode: service:db
     working_dir: /workspace
+    user: 1000:1000
     command:
       - bash
       - -c
