@@ -1,9 +1,12 @@
 from __future__ import annotations
 
+import multiprocessing
+import socket
 from pathlib import Path
 
 import django_stubs_ext
 import sentry_sdk
+from django_flyio.db import get_db_config
 from environs import Env
 from sentry_sdk.integrations.django import DjangoIntegration
 from sentry_sdk.integrations.logging import LoggingIntegration
@@ -40,7 +43,9 @@ ASGI_APPLICATION = "django_project.asgi.application"
 
 CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS", default=[])
 
-DATABASES = {"default": env.dj_db_url("DATABASE_URL", default="sqlite:///db.sqlite3")}
+DATABASES = get_db_config()
+
+DATABASE_ROUTERS = ["django_flyio.routers.FlyDBReplicaRouter"]
 
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
@@ -55,8 +60,10 @@ INSTALLED_APPS = [
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
+    "anymail",
     "django_extensions",
     "django_htmx",
+    "django_q",
     "django_vite",
     "django_watchfiles",
     "health_check",
@@ -80,6 +87,13 @@ if DEBUG:
         "whitenoise.runserver_nostatic",
     ] + INSTALLED_APPS
 
+if DEBUG:
+    hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
+    INTERNAL_IPS = [ip[: ip.rfind(".")] + ".1" for ip in ips] + [
+        "127.0.0.1",
+        "10.0.2.2",
+    ]
+
 LANGUAGE_CODE = "en-us"
 
 # https://docs.djangoproject.com/en/dev/topics/http/middleware/
@@ -98,10 +112,14 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "simple_history.middleware.HistoryRequestMiddleware",
     "django_htmx.middleware.HtmxMiddleware",
+    "django_flyio.middleware.FlyResponseMiddleware",
     # should be last
     "django.middleware.cache.FetchFromCacheMiddleware",
 ]
 if DEBUG:
+    MIDDLEWARE.remove("django.middleware.cache.UpdateCacheMiddleware")
+    MIDDLEWARE.remove("django.middleware.cache.FetchFromCacheMiddleware")
+
     MIDDLEWARE.insert(
         MIDDLEWARE.index("django.middleware.common.CommonMiddleware") + 1,
         "debug_toolbar.middleware.DebugToolbarMiddleware",
@@ -113,6 +131,19 @@ SECRET_KEY = env(
     "SECRET_KEY",
     default="eZPdvuAaLrVY8Kj3DG2QNqJaJc4fPp6iDgYneKN3fkNmqgkcNnoNLkFe3NCRXqW",
 )
+
+SECURE_HSTS_INCLUDE_SUBDOMAINS = not DEBUG
+
+SECURE_HSTS_PRELOAD = not DEBUG
+
+# 10 minutes to start with, will increase as HSTS is tested
+SECURE_HSTS_SECONDS = 0 if DEBUG else 600
+
+# https://noumenal.es/notes/til/django/csrf-trusted-origins/
+# https://fly.io/docs/reference/runtime-environment/#x-forwarded-proto
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
+SESSION_COOKIE_SECURE = not DEBUG
 
 SITE_ID = 1
 
@@ -198,6 +229,23 @@ STATICFILES_DIRS = [
 
 # 3. Third Party Settings
 
+# django-anymail
+ANYMAIL = {
+    "MAILGUN_API_KEY": env("MAILGUN_API_KEY", default=""),
+    "MAILGUN_SENDER_DOMAIN": env("MAILGUN_SENDER_DOMAIN", default=""),
+}
+
+# django-q2
+Q_CLUSTER = {
+    "name": "ORM",
+    "workers": multiprocessing.cpu_count() * 2 + 1,
+    "timeout": 90,
+    "retry": 120,
+    "queue_limit": 50,
+    "bulk": 10,
+    "orm": "default",
+}
+
 # django-vite
 DJANGO_VITE_ASSETS_PATH = BASE_DIR / "static" / "dist"
 
@@ -216,9 +264,6 @@ if not DEBUG or env.bool("ENABLE_SENTRY", default=False):
         ],
         traces_sampler=sentry_traces_sampler,
         send_default_pii=True,
-        ca_certs=env(
-            "CA_CERTS_PATH", default=str(Path(BASE_DIR / ".certs/cacert.pem"))
-        ),
     )
 
 # 4. Project Settings
