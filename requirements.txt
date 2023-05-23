@@ -708,9 +708,9 @@ pytest-reverse==1.5.0 \
     --hash=sha256:71952dbcc09d0bbed88af33dab2d540298325cc6193a00b4bb037f380041d680 \
     --hash=sha256:78ec5c8bab341403abf43a1e59e0f7499b7b0b897a54606f67e4f4d1ffc8b4cc
     # via -r requirements.in
-pytest-xdist==3.2.1 \
-    --hash=sha256:1849bd98d8b242b948e472db7478e090bf3361912a8fed87992ed94085f54727 \
-    --hash=sha256:37290d161638a20b672401deef1cba812d110ac27e35d213f091d15b8beb40c9
+pytest-xdist==3.3.1 \
+    --hash=sha256:d5ee0520eb1b7bcca50a60a518ab7a7707992812c578198f8b44fdfac78e8c93 \
+    --hash=sha256:ff9daa7793569e6a68544850fd3927cd257cc03a7ef76c95e86915355e82b5f2
     # via -r requirements.in
 python-dateutil==2.8.2 \
     --hash=sha256:0123cacc1627ae19ddf3c27a5de5bd67ee4586fbdd6440d9748f8abb483d3e86 \
