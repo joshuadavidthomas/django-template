@@ -16,6 +16,19 @@ exclude = '''
 include = '\.pyi?$'
 line-length = 88
 
+[tool.bumpver]
+commit = true
+commit_message = ":bookmark: bump version {old_version} -> {new_version}"
+current_version = "2023.5.2"
+push = false   # set to false for CI
+tag = true
+version_pattern = "YYYY.MM.INC1"
+
+[tool.bumpver.file_patterns]
+"django_project/__init__.py" = [
+    '__version__ = "{version}"',
+]
+
 [tool.django-stubs]
 django_settings_module = "django_project.settings"
 
