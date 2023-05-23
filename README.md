@@ -60,5 +60,11 @@ Creating postgres cluster in organization <example-organization>
 9. Create a new project in [Sentry](https://sentry.io) and add the DSN URL to
    `env.SENTRY_DSN` in `fly.toml`.
 
+10. Create a 'production' environment in the repository settings on
+    GitHub and add the following secrets:
+
+-   `FLY_API_TOKEN` - Your Fly.io API token.
+-   `SENTRY_AUTH_TOKEN` - Your Sentry auth token.
+
 Note: You may need to change `env.DEBUG` to `True` in `fly.toml` to debug
 and fix any issues that arise during deployment.
