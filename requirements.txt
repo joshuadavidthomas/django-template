@@ -404,9 +404,9 @@ django-stubs-ext==4.2.0 \
     --hash=sha256:55b2e3077f883e0131a7596f8ff8b19f8fc3ca325a3318ccacf5331acb2601e4 \
     --hash=sha256:7789f0caeca7152fef07ad6b94dec7310a05d0b8dab77f7979e19db0037b5127
     # via django-stubs
-django-vite==2.0.2 \
-    --hash=sha256:5a2e11a9f08a2a0a69c9a7c637a3254ad0c8dd01e07cb40de09a3a180ed99791 \
-    --hash=sha256:f11f4747183b884ee4e6c2ea12f0aa96a846574ee7344c05ac96b4fa89309535
+django-vite==2.1.0 \
+    --hash=sha256:78e24920f7e18f89fdff44708cd6cb91fc0776472800f2b4535e1a017967d266 \
+    --hash=sha256:fd3777035a9802be6b77868a3c94d12dc1a9e95f6dbe9b8a56996abac720df6b
     # via -r requirements.in
 django-watchfiles==0.0.1 \
     --hash=sha256:509f6dc7296865d3b5f5e7e7c192fed7cf706ea840d5a9430e4a2dc34441191c \
